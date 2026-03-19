@@ -315,10 +315,13 @@ def generate_image():
         else:
             image_b64 = generate_openai_image_from_prompt(final_prompt)
     except Exception as e:
-        return jsonify({
-            "ok": False,
-            "message": f"画像生成エラー: {str(e)}"
-        })
+      import traceback
+      traceback.print_exc()
+      return jsonify({
+        "ok": False,
+        "message": f"{type(e).__name__}: {str(e)}"
+    }), 500
+        
 
     return jsonify({
         "ok": True,
